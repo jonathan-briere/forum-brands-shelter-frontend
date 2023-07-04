@@ -12,7 +12,7 @@ export const Dashboard = () => {
   const [animalType, setAnimalType] = useState(DOG);
 
   useEffect(() => {
-    fetchAnimals(animalType, setAnimals)
+    fetchAnimals(animalType, setAnimals);
   }, [animalType]);
 
   return (

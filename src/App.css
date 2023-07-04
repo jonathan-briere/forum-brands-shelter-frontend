@@ -4,6 +4,10 @@
   background-color: rgb(235 236 238);
 }
 
+.popup-content{
+  border-radius: 1rem;
+}
+
 /* Modal Animation */
 @keyframes anvil {
   0% {

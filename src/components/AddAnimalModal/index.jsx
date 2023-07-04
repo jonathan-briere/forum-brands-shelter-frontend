@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import Popup from "reactjs-popup";
 import PropTypes from "prop-types";
 import { useForm, Controller } from "react-hook-form";
-import { Button, Input, MenuItem, TextField } from "@mui/material";
+import { Button, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import "reactjs-popup/dist/index.css";
 
@@ -19,7 +19,7 @@ export const AddAnimalModal = ({ object, children }) => {
   }, []);
 
   return (
-    <Popup className="deny-modal" trigger={children} modal nested>
+    <Popup trigger={children} modal nested>
       {(close) => (
         <Box sx={{ p: "1rem" }}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -70,22 +70,6 @@ export const AddAnimalModal = ({ object, children }) => {
                   </TextField>
                 )}
               />
-
-              <Box sx={{ p: "1rem" }}>
-                <label htmlFor="contained-button-file">
-                  <Input
-                    sx={{ m: "0.6rem" }}
-                    {...register("img")}
-                    accept="image/*"
-                    id="contained-button-file"
-                    multiple
-                    type="file"
-                  />
-                  <Button variant="contained" component="span">
-                    Upload
-                  </Button>
-                </label>
-              </Box>
 
               <Box>
                 <Button variant="contained" type="submit">

@@ -16,7 +16,7 @@ export const AdoptModal = ({ object, children }) => {
   const onSubmit = (data) => console.log(data);
 
   return (
-    <Popup className="deny-modal" trigger={children} modal nested>
+    <Popup trigger={children} modal nested>
       {(close) => (
         <Box sx={{ p: "1rem", textAlign: "center" }}>
           <form onSubmit={handleSubmit(onSubmit)}>
