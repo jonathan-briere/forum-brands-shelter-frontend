@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import Popup from "reactjs-popup";
 import PropTypes from "prop-types";
 import { useForm, Controller } from "react-hook-form";
@@ -6,13 +7,16 @@ import { Box } from "@mui/system";
 import "reactjs-popup/dist/index.css";
 
 import { animalType } from "fixtures/dashboardFixtures";
+import { createAnimal } from "actions/dashboardAction";
 
 export const AddAnimalModal = ({ object, children }) => {
   const { register, handleSubmit, control } = useForm({
     defaultValues: object,
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = useCallback((data) => {
+    createAnimal(data);
+  }, []);
 
   return (
     <Popup className="deny-modal" trigger={children} modal nested>

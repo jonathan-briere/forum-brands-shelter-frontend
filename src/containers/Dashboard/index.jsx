@@ -1,13 +1,19 @@
 import { Button, Container, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CardView } from "components/CardView";
 import { AddAnimalModal } from "components/AddAnimalModal";
 
 import { Tab } from "./Tab";
-import { animalData, DOG } from "constants/dashboardConstants";
+import { DOG } from "constants/dashboardConstants";
+import { fetchAnimals } from "actions/dashboardAction";
 
 export const Dashboard = () => {
-  const [value, setValue] = useState(DOG);
+  const [animals, setAnimals] = useState([]);
+  const [animalType, setAnimalType] = useState(DOG);
+
+  useEffect(() => {
+    fetchAnimals(animalType, setAnimals)
+  }, [animalType]);
 
   return (
     <div>
@@ -26,7 +32,7 @@ export const Dashboard = () => {
         </AddAnimalModal>
       </Container>
 
-      <Tab value={value} onChange={setValue} />
+      <Tab value={animalType} onChange={setAnimalType} />
 
       <Container
         sx={{
@@ -35,9 +41,8 @@ export const Dashboard = () => {
           flexWrap: "wrap",
         }}
       >
-        {animalData.map((data) => (
-          <CardView key={data.name} object={data} />
-        ))}
+        {animals.length > 0 &&
+          animals.map((data) => <CardView key={data.name} object={data} />)}
       </Container>
     </div>
   );
