@@ -1,24 +1,17 @@
 import Popup from "reactjs-popup";
 import PropTypes from "prop-types";
-import "reactjs-popup/dist/index.css";
 import { useForm, Controller } from "react-hook-form";
 import { Button, Input, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import { DOG, CAT } from "constants/dashboardConstants";
+import "reactjs-popup/dist/index.css";
 
-const type = [
-  {
-    label: "Dog",
-    value: DOG,
-  },
-  {
-    label: "Cat",
-    value: CAT,
-  },
-];
+import { animalType } from "fixtures/dashboardFixtures";
 
-export const AddAnimalModal = ({ children }) => {
-  const { register, handleSubmit, control } = useForm();
+export const AddAnimalModal = ({ object, children }) => {
+  const { register, handleSubmit, control } = useForm({
+    defaultValues: object,
+  });
+
   const onSubmit = (data) => console.log(data);
 
   return (
@@ -26,7 +19,7 @@ export const AddAnimalModal = ({ children }) => {
       {(close) => (
         <Box sx={{ p: "1rem" }}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Box sx={{ p: "1rem" }}>
+            <Box sx={{ p: "1rem", textAlign: "center" }}>
               <TextField
                 sx={{ m: "0.6rem" }}
                 {...register("name")}
@@ -37,8 +30,8 @@ export const AddAnimalModal = ({ children }) => {
 
               <TextField
                 sx={{ m: "0.7rem" }}
-                type="number"
                 {...register("age")}
+                type="number"
                 id="outlined-basic"
                 label="Age"
                 variant="outlined"
@@ -51,12 +44,10 @@ export const AddAnimalModal = ({ children }) => {
                 label="Breed"
                 variant="outlined"
               />
-            </Box>
 
-            <Box sx={{ p: "1rem" }}>
               <Controller
                 control={control}
-                name="type"
+                name="animal_type"
                 render={({ field: { onChange, value } }) => (
                   <TextField
                     sx={{ m: "0.6rem" }}
@@ -67,7 +58,7 @@ export const AddAnimalModal = ({ children }) => {
                     onChange={onChange}
                     helperText="Please select Type"
                   >
-                    {type.map((option) => (
+                    {animalType.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
@@ -75,9 +66,7 @@ export const AddAnimalModal = ({ children }) => {
                   </TextField>
                 )}
               />
-            </Box>
 
-            <Box sx={{ textAlign: "center" }}>
               <Box sx={{ p: "1rem" }}>
                 <label htmlFor="contained-button-file">
                   <Input
