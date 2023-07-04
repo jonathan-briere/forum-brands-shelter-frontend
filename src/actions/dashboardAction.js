@@ -1,5 +1,5 @@
 import {
-  createAnimalApi,
+  adoptAnimalApi,
   fetchAnimalsApi,
   updateAnimalApi,
 } from "api/dashboardApi";
@@ -12,22 +12,19 @@ import { errorHelper } from "helper/responseHelper";
 export const fetchAnimals = (animal_type, setResponse) =>
   fetchAnimalsApi(animal_type)
     .then((response) => setResponse(response.data.animals))
-    .catch((err) => null);
+    .catch(() => null);
 
-export const createAnimal = (animalObject) =>
-  createAnimalApi(animalObject)
-    .then((response) => {
-      showNotification("Animal Added Successfully", "success");
-      return response
-    })
+export const updateAnimal = (animalObject) =>
+  updateAnimalApi(animalObject)
+    .then(() => showNotification("Animal Updated Successfully", "success"))
     .catch((err) => {
       showAllNotifications(errorHelper(err), "error");
       return Promise.reject(err);
     });
 
-export const updateAnimal = (animalObject) =>
-  updateAnimalApi(animalObject)
-    .then(() => showNotification("Animal Updated Successfully", "success"))
+export const adoptAnimal = (id, guardianObject) =>
+  adoptAnimalApi(id, guardianObject)
+    .then(() => showNotification("Adopted Successfully", "success"))
     .catch((err) => {
       showAllNotifications(errorHelper(err), "error");
       return Promise.reject(err);

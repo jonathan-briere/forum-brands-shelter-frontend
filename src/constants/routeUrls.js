@@ -1,4 +1,4 @@
 export const routeUrls = {
   default: "/",
-  dashboard: '/dashboard'
+  dashboard: '/dashboard',
 }

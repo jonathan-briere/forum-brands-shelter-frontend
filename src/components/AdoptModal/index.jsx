@@ -1,11 +1,15 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useCallback, useState } from "react";
-import { TextField } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
+import DatePicker from "react-datepicker";
+
+import { adoptAnimal } from "actions/dashboardAction";
+import "react-datepicker/dist/react-datepicker.css";
 
 const style = {
   position: "absolute",
@@ -20,8 +24,15 @@ const style = {
   borderRadius: "0.5rem",
 };
 
-export const AdoptModal = ({ object, color = "primary", children }) => {
-  const { register, handleSubmit, reset } = useForm({
+export const AdoptModal = ({
+  id,
+  refetch,
+  fetch,
+  object,
+  color = "primary",
+  children,
+}) => {
+  const { register, handleSubmit, control, reset } = useForm({
     defaultValues: object,
   });
   const [open, setOpen] = useState(false);
@@ -32,10 +43,15 @@ export const AdoptModal = ({ object, color = "primary", children }) => {
     setOpen(false);
   }, [reset]);
 
-  const onSubmit = (data) => {
-    console.log(data);
-    handleClose();
-  };
+  const onSubmit = useCallback(
+    (data) => {
+      adoptAnimal(id, data).then(() => {
+        handleClose();
+        refetch(!fetch);
+      });
+    },
+    [id, fetch, refetch, handleClose]
+  );
 
   return (
     <div>
@@ -60,6 +76,9 @@ export const AdoptModal = ({ object, color = "primary", children }) => {
       >
         <Fade in={open}>
           <Box sx={style}>
+            <Typography gutterBottom variant="h4" component="div">
+              Guardian
+            </Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Box sx={{ p: "1rem" }}>
                 <TextField
@@ -67,6 +86,16 @@ export const AdoptModal = ({ object, color = "primary", children }) => {
                   {...register("full_name")}
                   id="outlined-basic"
                   label="Full Name"
+                  variant="outlined"
+                  disabled={object}
+                />
+
+                <TextField
+                  sx={{ m: "0.6rem" }}
+                  {...register("email")}
+                  id="outlined-basic"
+                  type="email"
+                  label="Email"
                   variant="outlined"
                   disabled={object}
                 />
@@ -96,6 +125,22 @@ export const AdoptModal = ({ object, color = "primary", children }) => {
                   label="Address"
                   variant="outlined"
                   disabled={object}
+                />
+              </Box>
+
+              <Box sx={{ m: 1 }}>
+                <Controller
+                  control={control}
+                  name="adopted_at"
+                  render={({ field: { onChange, value } }) => (
+                    <DatePicker
+                      selected={value ? new Date(value) : new Date()}
+                      onChange={onChange}
+                      minDate={
+                        object ? new Date(object.created_at) : new Date()
+                      }
+                    />
+                  )}
                 />
               </Box>
 

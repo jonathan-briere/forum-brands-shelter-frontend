@@ -1,7 +1,6 @@
 import { Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { CardView } from "components/CardView";
-import { AddAnimalModal } from "components/AddAnimalModal";
 
 import { Tab } from "./Tab";
 import { DOG } from "constants/dashboardConstants";
@@ -9,11 +8,12 @@ import { fetchAnimals } from "actions/dashboardAction";
 
 export const Dashboard = () => {
   const [animals, setAnimals] = useState([]);
+  const [fetch, refetch] = useState(false);
   const [animalType, setAnimalType] = useState(DOG);
 
   useEffect(() => {
     fetchAnimals(animalType, setAnimals);
-  }, [animalType]);
+  }, [animalType, fetch]);
 
   return (
     <div>
@@ -26,10 +26,6 @@ export const Dashboard = () => {
         Dashboard
       </Typography>
 
-      <Container sx={{ textAlign: "end" }}>
-        <AddAnimalModal>Add</AddAnimalModal>
-      </Container>
-
       <Tab value={animalType} onChange={setAnimalType} />
 
       <Container
@@ -40,7 +36,7 @@ export const Dashboard = () => {
         }}
       >
         {animals.length > 0 &&
-          animals.map((data) => <CardView key={data.name} object={data} />)}
+          animals.map((data) => <CardView key={data.id} object={data} fetch={fetch} refetch={refetch} />)}
       </Container>
     </div>
   );
