@@ -3,6 +3,7 @@ import { Navbar } from "./components/Navbar";
 import "./App.css";
 
 import { Dashboard } from "./containers/Dashboard";
+import { routeUrls } from "./constants/routeUrls";
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path={routeUrls.default} element={<Dashboard />} />
+          <Route path={routeUrls.dashboard} element={<Dashboard />} />
         </Routes>
       </div>
     </BrowserRouter>
