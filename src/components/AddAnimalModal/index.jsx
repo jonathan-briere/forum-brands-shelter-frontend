@@ -4,18 +4,7 @@ import "reactjs-popup/dist/index.css";
 import { useForm, Controller } from "react-hook-form";
 import { Button, Input, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import { DOG, CAT } from "constants/dashboardConstants";
-
-const type = [
-  {
-    label: "Dog",
-    value: DOG,
-  },
-  {
-    label: "Cat",
-    value: CAT,
-  },
-];
+import { animalType } from "fixtures/dashboardFixtures";
 
 export const AddAnimalModal = ({ children }) => {
   const { register, handleSubmit, control } = useForm();
@@ -67,7 +56,7 @@ export const AddAnimalModal = ({ children }) => {
                     onChange={onChange}
                     helperText="Please select Type"
                   >
-                    {type.map((option) => (
+                    {animalType.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>

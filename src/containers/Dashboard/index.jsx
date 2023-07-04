@@ -1,19 +1,12 @@
-import {
-  BottomNavigation,
-  BottomNavigationAction,
-  Button,
-  Container,
-  Typography,
-} from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import { useState } from "react";
 import { CardView } from "components/CardView";
-import { DOG, CAT } from "constants/dashboardConstants";
 import { AddAnimalModal } from "components/AddAnimalModal";
+
+import { Tab } from "./Tab";
 
 export const Dashboard = () => {
   const [value, setValue] = useState();
-
-  console.log(value);
 
   return (
     <div>
@@ -32,23 +25,7 @@ export const Dashboard = () => {
         </AddAnimalModal>
       </Container>
 
-      <BottomNavigation
-        sx={{
-          width: 300,
-          mx: "auto",
-          mb: "1rem",
-          boxShadow: 3,
-          borderRadius: "0.5rem",
-        }}
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-      >
-        <BottomNavigationAction label="Dogs" value={DOG} />
-        <BottomNavigationAction label="Cats" value={CAT} />
-      </BottomNavigation>
+      <Tab value={value} onChange={setValue} />
 
       <Container
         sx={{
