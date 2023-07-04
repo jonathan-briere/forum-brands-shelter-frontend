@@ -1,4 +1,4 @@
-import { Button, Container, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { CardView } from "components/CardView";
 import { AddAnimalModal } from "components/AddAnimalModal";
@@ -27,9 +27,7 @@ export const Dashboard = () => {
       </Typography>
 
       <Container sx={{ textAlign: "end" }}>
-        <AddAnimalModal>
-          <Button variant="contained">Add Animal</Button>
-        </AddAnimalModal>
+        <AddAnimalModal>Add</AddAnimalModal>
       </Container>
 
       <Tab value={animalType} onChange={setAnimalType} />
