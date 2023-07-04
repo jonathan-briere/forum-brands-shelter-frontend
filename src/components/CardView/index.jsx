@@ -32,20 +32,19 @@ export const CardView = ({ object, refetch, fetch }) => (
     <CardActions sx={{ justifyContent: "center" }}>
       {object?.adopted ? (
         <AdoptModal
-          id={object.id}
-          object={object.guardian}
           fetch={fetch}
           refetch={refetch}
+          id={object.id}
           color="success"
         >
           Adopted
         </AdoptModal>
       ) : (
-        <AdoptModal id={object.id} fetch={fetch} refetch={refetch}>
+        <AdoptModal fetch={fetch} refetch={refetch} id={object.id}>
           Adopt
         </AdoptModal>
       )}
-      <AddAnimalModal fetch={fetch} refetch={refetch} object={object}>
+      <AddAnimalModal fetch={fetch} refetch={refetch} id={object.id}>
         Edit
       </AddAnimalModal>
     </CardActions>

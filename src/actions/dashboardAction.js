@@ -1,5 +1,6 @@
 import {
   adoptAnimalApi,
+  fetchAnimalApi,
   fetchAnimalsApi,
   updateAnimalApi,
 } from "api/dashboardApi";
@@ -12,6 +13,11 @@ import { errorHelper } from "helper/responseHelper";
 export const fetchAnimals = (animal_type, setResponse) =>
   fetchAnimalsApi(animal_type)
     .then((response) => setResponse(response.data.animals))
+    .catch(() => null);
+
+export const fetchAnimal = (id, setResponse) =>
+  fetchAnimalApi(id)
+    .then((response) => setResponse(response.data))
     .catch(() => null);
 
 export const updateAnimal = (animalObject) =>
